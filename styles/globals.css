@@ -1,0 +1,201 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer utilities {
+  .shadow-neumorph {
+    box-shadow: 8px 8px 16px #d1d1d1,
+               -8px -8px 16px #ffffff;
+  }
+
+  .shadow-neumorph-hover {
+    box-shadow: 12px 12px 24px #d1d1d1,
+               -12px -12px 24px #ffffff;
+  }
+
+  .shadow-neumorph-inset {
+    box-shadow: inset 6px 6px 12px #d1d1d1,
+                inset -6px -6px 12px #ffffff;
+  }
+
+  .shadow-neumorph-dark {
+    box-shadow: 8px 8px 16px #151515,
+               -8px -8px 16px #353535;
+  }
+
+  .shadow-neumorph-dark-hover {
+    box-shadow: 12px 12px 24px #151515,
+               -12px -12px 24px #353535;
+  }
+
+  .shadow-neumorph-dark-inset {
+    box-shadow: inset 6px 6px 12px #151515,
+                inset -6px -6px 12px #353535;
+  }
+}
+
+* {
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Theme toggle slider styles */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: transparent;
+}
+
+/* Light Theme Scrollbar */
+:root:not(.dark) ::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  margin: 3px;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+              inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+}
+
+:root:not(.dark) ::-webkit-scrollbar-thumb {
+  background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1),
+             -2px -2px 4px rgba(255, 255, 255, 0.9);
+}
+
+:root:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15),
+             -3px -3px 6px rgba(255, 255, 255, 1);
+}
+
+/* Dark Theme Scrollbar */
+:root.dark ::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  margin: 3px;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+              inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+
+:root.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(145deg, #383838, #2e2e2e);
+  border-radius: 8px;
+  border: 2px solid #2a2a2a;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+             -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+
+:root.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(145deg, #404040, #363636);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4),
+             -3px -3px 6px rgba(255, 255, 255, 0.06);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox Scrollbar Support */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
+}
+
+:root:not(.dark) {
+  --scroll-thumb-color: #e6e6e6;
+  --scroll-track-color: #f0f0f0;
+}
+
+:root.dark {
+  --scroll-thumb-color: #383838;
+  --scroll-track-color: #2a2a2a;
+}
+
+.theme-transition-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: transform 500ms ease-in-out;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Different line colors for different theme transitions */
+.theme-transition-line.light {
+  background: #1a1a1a;
+  box-shadow: 0 0 20px 10px rgba(26, 26, 26, 0.5);
+}
+
+.theme-transition-line.dark {
+  background: #ffffff;
+  box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Theme wrapper for transition */
+.theme-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: clip-path 500ms ease-in-out;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.theme-wrapper.dark {
+  background-color: theme('colors.current');
+}
+
+.theme-wrapper.light {
+  background-color: theme('colors.gray.100');
+}
+
+/* Remove default transitions during theme change */
+* {
+  transition-property: none;
+}
+
+/* Ensure proper stacking context */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-wrapper #root {
+  position: static;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-out forwards;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+  
+  .animation-delay-900 {
+    animation-delay: 900ms;
+  }
+}
